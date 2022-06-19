@@ -1,0 +1,9 @@
+.login-form{
+    max-width: 390px;
+    width: 100%;
+}
+
+.login-img{
+    background: url(../images/login_img.jpg) #ddd;
+    background-size: cover;
+}

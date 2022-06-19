@@ -1,0 +1,259 @@
+/* Form */
+body{
+	color: #4e4e4e;
+}
+
+#components-container .component-box{
+	position: relative;
+}
+
+#components-container .component-title{
+	position: absolute;
+	top: 6px;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	width: 100%;
+	text-align: center;
+	z-index: 1;
+	pointer-events: none;
+}
+
+#components-container .component{
+	border: solid #ddd 1px;
+	height: 35px;
+	width: 100%;
+	overflow: hidden;
+	position: relative;
+	border-radius: 3px;
+
+}
+
+ #components-container .component:hover{
+	background: #fafafa;
+	border: dashed 1px #17a2b8;
+	cursor: pointer;
+}
+
+#components-container .control-label{
+	margin: 100px 0 0;
+	z-index: -999;
+}
+
+#editor-tab{
+	position: relative;
+}
+
+#editor-tab .element{
+	//border: 1px solid rgba(0,0,0,.125);
+	word-break: break-word;
+}
+
+#editor-tab legend{
+	border: solid #eee 1px;
+	padding: 5px 10px;
+}
+
+#editor-tab legend:hover{
+	background: #fafafa;
+}
+
+#editor-tab input[type="text"],
+#editor-tab input[type="number"],
+#editor-tab .checkbox,
+#editor-tab .radio,
+#editor-tab input[type="radio"],
+#editor-tab input[type="file"],
+#editor-tab select,
+#editor-tab textarea
+{
+	pointer-events: none;
+}
+
+#editor-tab .file_input{
+	padding: 3px;
+	font-size: 14px;
+}
+
+#editor-tab .control-label span{
+	color: #c1c1c1;
+}
+
+/* FORM CONTENT BOX */
+#editor-tab #content {
+	border: 1px solid rgba(0,0,0,.125);
+	border-radius: 4px;
+	padding: 10px 20px;
+	min-height: 340px;
+	background: #fff;
+	overflow: hidden;
+}
+
+#editor-tab #content_form_name {
+	cursor: pointer;
+}
+
+.content-hover {
+	border: 1px dashed #3a87ad !important;
+	color: #3a87ad;
+	background: #d9edf7;
+	opacity: 0.5;
+}
+
+.content-hover legend {
+	color: #3a87ad;
+	border-color: -moz-use-text-color -moz-use-text-color #3a87ad;
+}
+
+.content-hover .element {
+	border: 1px solid #d9edf7;
+}
+
+
+.new-component {
+	position: relative;
+	animation: slideComponent .8s;
+}
+
+/* RANDOM BOOTSTAP FIX BECAUSE INPUT HEIGHT IS SET AT 30px ?!?! */
+input[type=text] {
+	height: auto;
+}
+
+/* COMPONENTS */
+.component {
+	cursor: move;
+	padding: 10px;
+	border: 1px solid #fff;
+}
+
+.component:hover {
+	background: #fafafa !important;
+	border: 1px solid #eee;
+}
+
+.component-drag {
+	border: 1px solid #eee;
+	border-radius: 4px;
+	padding: 10px;
+	background: #FFF;
+}
+
+/* ELEMENTS */
+.element {
+	cursor: move;
+	padding: 10px;
+	border: 1px solid rgba(0, 0, 0, 0);
+}
+
+.element:hover {
+	background: #fcfcfc;
+	border: 1px solid rgba(0,0,0,.125);
+}
+
+.element-placeholder {
+	border: 1px dashed #3a87ad;
+	color: #3a87ad;
+	background: #d9edf7;
+	min-height: 50px;
+	opacity: 0.5;
+}
+.close{
+	cursor: pointer;
+}
+
+.edit-fields,
+.component-form-box{
+	display: none;
+}
+
+.help-block{
+	display: block;
+	margin-top: 10px;
+	font-style: italic;
+	font-size: 14px;
+	color: #887d7d;
+}
+
+.modal-form-settings .control-label{
+	padding: 6px 0 0 18px;
+}
+
+.form-title-wrap{
+	display: inline-block;
+	vertical-align: middle;
+	cursor: pointer;
+}
+.form-title-tab{
+	display: inline-block;
+	font-weight: 700;
+	margin: 0;
+	vertical-align: middle;
+}
+
+.form-hint{
+	color: #c1c1c1;
+}
+
+.form-title-wrap .form-hint{
+	display: inline-block;
+	position: relative;
+	top: 3px;
+}
+
+#editor-tab .form-shortcode{
+	position: absolute;
+	top: -13px;
+	right: 20px;
+	background: #17a2b8;
+	color: #fff;
+	font-size: 13px;
+	padding: 4px 8px;
+}
+
+
+.form-page-card-save{
+	margin-top: 40px;
+}
+
+.form-page-card-save .sticky-top{
+	top: 77px;
+}
+
+.navbar-expand .navbar-nav {
+	display: flex;
+	flex: 1;
+	align-items: flex-end;
+	flex-direction: row-reverse;
+}
+
+.form-top{
+	border-bottom: solid #ddd 1px;
+	background: #fff;
+	color: #5d5d5d;
+	margin: 0 !important;
+}
+
+.form-body{
+	background: #fdfdfd;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+	color: #fff;
+	border-color: #17a2b8;
+	background-color: #17a2b8;
+}
+
+@keyframes slideComponent {
+	0% {
+		left: -100%;
+		opacity: 0;
+	}
+
+	100% {
+		border: 1px solid rgba(0, 0, 0, 0);
+		background: none;
+		left: 0;
+		opacity: 1;
+	}
+}

@@ -1,0 +1,390 @@
+/*-----------------------------------
+            GLOBAL
+-----------------------------------*/
+
+body{
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+img{
+    max-width: 100%;
+}
+
+.wrap{
+    width:1200px;
+    margin:0 auto;
+}
+
+.right{
+    float:right;
+}
+
+.left{
+    float:left;
+}
+
+.clear:after{
+    display:block;
+    content:'';
+    height:0;
+    visibility:hidden;
+    clear:both;
+}
+
+a,a:link,a:visited{
+    color:#555;
+    text-decoration:none;
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-family: 'Segoe UI', Arial, sans-serif;   
+}
+
+h1{
+    
+}
+
+h2{
+    font-size: 25px;
+}
+
+h3{
+
+}
+
+h4{
+
+}
+
+h5{
+
+}
+
+h6{
+
+}
+
+input[type="submit"]{
+    cursor:pointer;
+}
+
+
+
+/*-----------------------------------
+            HEADER
+-----------------------------------*/
+
+.navigation{}
+
+.navigation li {
+    box-sizing: border-box;
+    display: block;
+    position: relative;
+    float: left;
+    line-height: 30px;
+    background-color: #ececec;
+    border-right: #cccccc 1px solid;
+}
+
+.navigation .parent:last-child{
+    border-right: 0;
+}
+
+.navigation a{
+    display: inline-block;
+    line-height: normal;
+      margin: 10px;
+    text-decoration: none;
+}
+
+.navigation .parent:hover > ul {
+    display:block;
+    position:absolute;
+}
+
+.navigation .child {
+    display: none;
+}
+
+.navigation .child li {
+    background-color: #a2a2a2;
+    line-height: 30px;
+    border-bottom: #CCC 1px solid;
+    border-left: #a7a5a5 1px solid;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.navigation > ul > li > .sub-level > li{
+    border-left: 0 !important;
+}
+
+.navigation > .nav > li:last-child{
+    border-right: 0;
+}
+
+.navigation .child li a{
+    color: #000000;
+    display: block;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 10px 10px;
+    z-index: 2;
+}
+
+.navigation ul{
+    list-style: none;
+    margin: 0;
+    min-width:10em;
+    padding: 0px;
+}
+.navigation ul ul ul{
+    left: 100%;
+    top: 0;
+}
+
+.navigation li:hover {
+    background-color: #bdbdbd;
+}
+
+.navigation .parent li:hover {
+    background-color: #bdbdbd;
+}
+
+.navigation .parent a{
+    padding-right: 10px;
+}
+
+.navigation .expand{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.navigation .expand:after{
+    content: '\02F2';
+    display: inline-block;
+    position: absolute;
+    right: 4px;
+    font-size: 40px;
+    line-height: 0;
+    color: #3c3c3c;
+}
+
+.navigation .nav > .nav-item > .expand:after{
+    content: '\02EF';
+}
+
+.sb .navigation{
+    display: inline-block;
+}
+
+.sb .navigation .parent{
+    float: none;
+}
+
+.sb .navigation .child{
+    position: absolute;
+    left: 100%;
+    top: 0;
+}
+
+.sb .navigation .expand-1:after{
+    content: '\02F2';
+}
+
+/*-----------------------------------
+            FOOTER
+-----------------------------------*/
+
+
+
+
+/*-----------------------------------
+            CONTENT
+-----------------------------------*/
+
+.form{
+    background: #fafafa;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    padding: 20px;
+    width: 100%;
+}
+
+.form h3{
+    margin-top: 5px;
+}
+
+.form .input-con{
+    margin-bottom: 15px;
+}
+
+.form label{
+    display: block;
+    margin: 0 0 5px;
+}
+
+.form .required{
+    color: red;
+}
+
+.form input[type="text"],
+.form input[type="email"],
+.form input[type="file"],
+.form textarea,
+.form select
+{
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 14px;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 5px 5px;
+    border: solid 1px #ddd;
+    background: #fff;
+}
+
+.form textarea{
+    resize: vertical;
+}
+
+.form .input-con-submit{
+    text-align: right;
+}
+
+.form input[type="submit"]{
+    font-size: 20px;
+    padding: 4px 7px;
+}
+
+.thank-you-section{
+    text-align: center;
+    height: 80vh!important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.thank-you-section h2{
+    font-size: 35px;
+    margin: 0;
+    padding: 20px 0 0px;
+}
+
+.thank-you-section p{
+    margin: 20px 0;
+}
+
+.thank-you-section a.button-link{
+    background: #34ad72;
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    margin: 10px 0 0;
+}
+
+.thank-you-content img{
+    width: 100px;
+    height: auto;
+}
+
+.error-page{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #555;
+}
+
+.error-page h2{
+    font-size: 60px;
+    margin: 0;
+    color: #555;
+}
+
+.error-page h3{
+    
+    font-size: 30px;
+    margin: 0;
+}
+
+.error-page a.button-link{
+    background: #6b6b6b;
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    margin: 10px 0 0;
+}
+
+/*-----------------------------------
+            GALLERY
+-----------------------------------*/
+
+.gallery{
+    list-style: none;
+}
+
+.gallery li{
+    float: left;
+    margin: 0 10px 0 0;
+}
+
+.gallery a{
+
+}
+
+.gallery img{
+    border: solid #ddd 1px;
+}
+
+.pp_social{
+    display: none;
+}
+
+.pp_default .pp_description{
+    margin-top: 9px !important;
+}
+
+.pp_default .currentTextHolder{
+    left: 45px !important;
+}
+
+div.pp_default .pp_nav{
+    width: 80px !important;
+}
+
+/*-----------------------------------
+            MEDIA QUERIES
+-----------------------------------*/
+
+
+
+@media only screen and (max-width:1200px){
+
+}
+
+@media only screen and (max-width:979px){
+
+}
+
+@media only screen and (max-width:767px){
+  
+}
+
+
+@media only screen and (max-width:480px){
+    
+}
+
+@media only screen and (max-width:320px){
+
+}
+
+

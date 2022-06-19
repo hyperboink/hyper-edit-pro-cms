@@ -1,0 +1,192 @@
+v1 - unlimited page - complete
+	- can create and delete dynamically - done
+	- unlimited pages - done
+
+v2 - manual create file - wip
+	
+	TEMPLATES
+		- create template file via form - done
+		- delete template files - done
+	HEADER TEMPLATE = done
+	FOOTER TEMPLATE = done
+	PAGES
+		- can edit and update page - done
+		- enable/disable page
+		- disable in menu
+	ROUTES
+		- automatic generate routes - done
+	MENUS
+		- add menus = done
+		- enable disable menu = done
+		- create menu = done
+	SHORTCODES
+		- can add shortcodes - done
+		- update shortcode - done
+		- SHORTCODE FEATURES
+			- title = done
+			- content = done
+			- image
+			- social = done all
+				- facebook
+				- twitter
+				- instagram
+				- gplus
+				- youtube
+				- linkedin
+				- pinterest
+				- vimeo
+				- tumblr
+				- dribble
+				- snapchat
+				- custom
+				{
+					id: int,
+					url: string,
+					status: boolean,
+					modified_at: timestamp
+				}
+			- gallery = done
+			- contact forms = done
+			- contact phone = done
+			- contact mobile = done
+			- contact fax = done
+			- contact email = done
+			- contact address = done
+			- contact info = done
+			- google map = done
+	FORMS
+		- drag and drop = done
+		- admin add edit delete update = done
+		- shortcode = done
+		- email settings
+			{
+				email: string,
+				cc: string,
+				subject: string,
+				status: boolean
+				created_at: timestamp,
+				updated_at: timestamp
+			}
+		- smtp
+			smtpHost: string, // mail server = ex: mail.yourdomain.com
+			stmpPort: int, // server mail port = ex: 25
+			smtpAuth: boolean, //if checked will use the smtp username and password
+			smtpUsename: string,
+			smtpPassword: string,
+			senderEmail: //same with smtp username
+
+
+
+	SITE SETTINGS = all done
+		MAINTENANCE
+			- add switch config
+			- site title
+			- user email
+			- user 
+
+	PASSWORD RESET
+
+
+
+
+PLAN
+	- page_templates
+		- id
+		- filename
+		- status
+		- created at
+
+	- page_shortcodes
+		- id
+		- page_template_id
+		- content
+			(sample field value)
+			{
+				shortcode: String,	{
+					type: String,
+					value: String 
+				}
+			}
+	- forms
+		- id
+		- name
+		- shortcode
+		- data
+		- status
+		- created_at
+		- updated_at
+	- menu
+		- id
+		- name
+		- data
+		- status
+		- created_at
+		- updated_at
+	- password_resets
+		- email
+		- token
+		- created_at
+
+		
+
+Dashboard
+	- Welcome message
+	- site status card
+	- Go and edit your pages card
+
+
+
+
+Your Business
+
+a) Name of your business: BuyCarYey
+
+b) Do you have a tag line or slogan you wish to include? No
+
+c) Type of Business: selling cars
+
+d) What is the nature of your business? selling cars
+
+e) Your email address: blabla@yahoo.com
+
+f) Phone number: blabla
+
+g) Address: blabla
+
+h) Any Social Media Account: fb, tw, instagram, gplus
+
+General Information
+
+i)) Do you have a current website? No
+
+j) What is your target audience? All
+
+k) What is your competitor’s website? None
+
+l) What is your reference site? None
+
+m) Additional information for your site: None
+
+Site Design
+
+n) Do you have any specific colors? red, black, optional yellow
+
+o) Do you have a company logo? No
+
+p) Do you have existing content? Lorem ipsum
+
+q) Do you have images that you want to include? No
+
+Site Pages
+
+r) What page titles do you require? Please list it here:
+
+Page 1 (eg. Home)
+
+Page 2 (eg. About Us)
+
+Page 3 (eg. Services)
+
+Page 4 (eg. Products)
+
+Page 5 (eg. Contact Us)
