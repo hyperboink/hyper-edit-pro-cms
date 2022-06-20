@@ -55,19 +55,21 @@ if(!function_exists('menu')){
 	function menu($array){
 		echo '<ol class="dd-list">';
 		foreach($array as $key => $arr){
-			echo '<li class="dd-item'.($arr['type'] == 'custom' ? ' custom-menu-item' : '').'" data-type="'.$arr['type'].'" data-id="'.$arr['id'].'" data-name="'.($arr['id'] == 'custom' ? 'custom' : $arr['slug']).'-'.$arr['id'].'" data-title="'.$arr['title'].'" data-slug="'.$arr['slug'].'">';
+			if(array_key_exists('type', $arr)){
+				echo '<li class="dd-item'.($arr['type'] == 'custom' ? ' custom-menu-item' : '').'" data-type="'.$arr['type'].'" data-id="'.$arr['id'].'" data-name="'.($arr['id'] == 'custom' ? 'custom' : $arr['slug']).'-'.$arr['id'].'" data-title="'.$arr['title'].'" data-slug="'.$arr['slug'].'">';
 
-			echo '<div class="dd-handle"><div class="dd-handle-text">'.$arr['title'].'</div></div>';
+				echo '<div class="dd-handle"><div class="dd-handle-text">'.$arr['title'].'</div></div>';
 
-			if($arr['type'] == 'custom'){
-				echo '<div class="menu-action"><i class="fa fa-pencil-square-o edit-custom-menu" aria-hidden="true"></i><span class="remove-menu">X</span><div class="edit-menu-fields" style="display: none;"><input type="text" class="edit-custom-title" placeholder="Type Title here..."><input type="text" class="edit-custom-link" placeholder="Type link here..."></div></div>';
+				if($arr['type'] == 'custom'){
+					echo '<div class="menu-action"><i class="fa fa-pencil-square-o edit-custom-menu" aria-hidden="true"></i><span class="remove-menu">X</span><div class="edit-menu-fields" style="display: none;"><input type="text" class="edit-custom-title" placeholder="Type Title here..."><input type="text" class="edit-custom-link" placeholder="Type link here..."></div></div>';
+				}
+
+				if(isset($arr['children']) && count($arr['children'])){
+					menu($arr['children']);
+				}
+
+				echo '</li>';
 			}
-
-			if(isset($arr['children']) && count($arr['children'])){
-				menu($arr['children']);
-			}
-
-			echo '</li>';
 		}
 		echo '</ol>';
 	}
@@ -190,7 +192,7 @@ if(!function_exists('get_all_by_keys')){
 			if($key == $k){
 				$keys[] = $value;
 			}
-		   
+
 		}, $keys);
 
 		return $keys;
@@ -201,7 +203,7 @@ if(!function_exists('get_all_by_keys')){
 if(!function_exists('get_all_keys')){
 	function get_all_keys($ar) { 
 
-	   foreach($ar as $k => $v) { 
+		foreach($ar as $k => $v) {
 			$keys[] = $k; 
 			if (is_array($ar[$k])) 
 				$keys = array_merge($keys, get_all_keys($ar[$k])); 
@@ -211,6 +213,36 @@ if(!function_exists('get_all_keys')){
 	} 
 }
 
+if(!function_exists('array_walk_recursive_array')){
+	function array_walk_recursive_array(array &$array, callable $callback) {
+		foreach ($array as $k => &$v) {
+			if (is_array($v)) {
+				array_walk_recursive_array($v, $callback);
+			} else {
+				$callback($v, $k, $array);
+			}
+		}
+	}
+}
+
+if(!function_exists('remove_relative_array')){
+	function remove_relative_array(&$array, $arrayToCompare, $keyToCompare, $childArrayKey){
+		if(is_array($array)){
+			foreach($array as $key => &$arrayElement){
+				if(is_array($arrayElement)){
+					remove_relative_array($array[$key], $arrayToCompare, $keyToCompare, $childArrayKey);
+				}else{
+					if($key == $keyToCompare && !in_array($array[$keyToCompare], $arrayToCompare)){
+						$array = array_key_exists($childArrayKey, $array) ? $array[$childArrayKey][0] : [];
+					}
+				}
+			}
+		}
+
+		return $array;
+	}
+}
+
 if(!function_exists('count_by_keys')){
 	function count_by_keys($array, $key) { 
 		$keys = array_filter(get_all_keys($array), function($value) use ($key) {
@@ -218,7 +250,7 @@ if(!function_exists('count_by_keys')){
 		});
 
 		return count($keys);
-	} 
+	}
 }
 
 

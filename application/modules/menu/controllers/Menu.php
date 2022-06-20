@@ -37,44 +37,54 @@ class Menu extends HY_Controller{
 
 		$data['message'] = $this->session->flashdata('message');
 
+		$pages = get_all_by_keys(json_decode(json_encode($data['pages']), true), 'id');
+
 		foreach($data['menus'] as $key => $menu){
 
 			if($menu['id'] === $id){
-				//$data['shortcode_menu_id'] = $menu['shortcode_menu_id'];
+				//Delete this
+				/*$data['shortcode_menu_id'] = $menu['shortcode_menu_id'];
 				//$data['shortcode_menu_key'] = $menu['shortcode_menu_key'];
-				//$data['menu_name'] = $menu['name'];
-				$data['menu_data'] = json_decode(html_entity_decode($menu['data_menu']), true);
-				$data['page_data'] = json_decode(html_entity_decode($menu['data_page']), true);
+				$data['menu_name'] = $menu['name'];*/
+
+				$data['menu_data'] = $this->transformMenuData($menu['data_menu'], $pages);
+				$data['page_data'] = $this->transformMenuData($menu['data_page'], $pages);
+
+				/*$data['menu_data'] = array_filter(json_decode(html_entity_decode($menu['data_menu']), true), function($obj) use ($pages){
+					return in_array($obj['id'], array_merge($pages, [0]));
+				});*/
+
+				/*$data['page_data'] = array_filter(json_decode(html_entity_decode($menu['data_page']), true), function($obj) use ($pages){
+					return in_array($obj['id'], array_merge($pages, [0]));
+				});*/
 			}
 
 		}
+
+		//pre($pages);
+		//pre($data['menu_data']);
 
 		$new_pages = [];
 
 		$saved_in_menu = get_all_by_keys(array_merge($data['menu_data'], $data['page_data']), 'id');
 
 		foreach($data['pages'] as $page){
-			if(!in_array($page->id, $saved_in_menu)){
+			if(!in_array($page['id'], $saved_in_menu)){
 				$new_pages[] = [
-					'id' => $page->id,
+					'id' => $page['id'],
 					'type' => 'page',
-					'title' => $page->title,
-					'name' => $page->slug.'-'.$page->id,
-					'slug' => $page->slug,
+					'title' => $page['title'],
+					'name' => $page['slug'].'-'.$page['id'],
+					'slug' => $page['slug'],
 				];
 			}
 		}
 
 		$data['page_data_added'] = $new_pages;
 
-
-		//pre(html_entity_decode($menu['data_menu']));
-
 		$this->content = 'menu/page';
 
 		$this->layout_admin($data);
-
-		//$data['menus'] = $this->menu_model->oldest();
 
 	}
 
@@ -140,14 +150,17 @@ class Menu extends HY_Controller{
 
 		$data['message'] = $this->session->flashdata('message');
 
+		$pages = get_all_by_keys(json_decode(json_encode($data['pages']), true), 'id');
+
 		foreach($data['menus'] as $key => $menu){
 
 			if($menu['id'] === $id){
 				$data['shortcode_menu_id'] = $menu['shortcode_menu_id'];
 				$data['shortcode_menu_key'] = $menu['shortcode_menu_key'];
 				$data['menu_name'] = $menu['name'];
-				$data['menu_data'] = json_decode(html_entity_decode($menu['data_menu']), true);
-				$data['page_data'] = json_decode(html_entity_decode($menu['data_page']), true);
+
+				$data['menu_data'] = $this->transformMenuData($menu['data_menu'], $pages);
+				$data['page_data'] = $this->transformMenuData($menu['data_page'], $pages);
 			}
 
 		}
@@ -157,13 +170,13 @@ class Menu extends HY_Controller{
 		$saved_in_menu = get_all_by_keys(array_merge($data['menu_data'], $data['page_data']), 'id');
 
 		foreach($data['pages'] as $page){
-			if(!in_array($page->id, $saved_in_menu)){
+			if(!in_array($page['id'], $saved_in_menu)){
 				$new_pages[] = [
-					'id' => $page->id,
+					'id' => $page['id'],
 					'type' => 'page',
-					'title' => $page->title,
-					'name' => $page->slug.'-'.$page->id,
-					'slug' => $page->slug,
+					'title' => $page['title'],
+					'name' => $page['slug'].'-'.$page['id'],
+					'slug' => $page['slug'],
 				];
 			}
 		}
@@ -235,6 +248,11 @@ class Menu extends HY_Controller{
 
 	}
 
+	private function transformMenuData($data, $arrayToCompare){
+		$encoded_data = json_decode(html_entity_decode($data), true);
+
+		return remove_relative_array($encoded_data, array_merge($arrayToCompare, [0]), 'id', 'children');
+	}
 	
 }
  

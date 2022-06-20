@@ -53,19 +53,29 @@ class HY_Controller extends MY_Controller{
 
 		if(isset($data['page_status']) && !$data['page_status']){
  			$template_set['header'] = false;
- 			$this->content = 'templates/404';
  			$template_set['footer'] = false;
+ 			$template_set['sidebar'] = false;
+ 			$this->content = 'templates/404';
  		}
 
  		$data['body_class'] = $data['body_class'] ?? $data['slug'] ?? '';
 
-		$this->tmpl['head_tag'] = $this->parser->parse('templates/layout/head_tags' , $data, TRUE);
+		$this->tmpl['head_tags'] = $this->parser->parse('templates/layout/head_tags' , $data, TRUE);
 
- 		$setting->maintenance && $maintenance_exception
- 			? $this->tmpl['content'] = $this->parser->parse('maintenance' , $data, TRUE)
- 			: $this->set_layout($data, $template_set);
+ 		/*$setting->maintenance && $maintenance_exception
+ 			? $this->tmpl['content'] = $this->parser->parse('templates/maintenance' , $data, TRUE)
+ 			: $this->set_layout($data, $template_set);*/
+
+ 		if($setting->maintenance && $maintenance_exception){
+ 			$template_set['header'] = false;
+ 			$template_set['footer'] = false;
+ 			$template_set['sidebar'] = false;
+ 			$this->content = 'templates/maintenance';
+ 		}
 
  		$this->tmpl['additional_script'] = html_entity_decode($setting->additional_script);
+
+ 		$this->set_layout($data, $template_set);
 
 		$this->parser->parse('templates/layout/main', $this->tmpl);
 

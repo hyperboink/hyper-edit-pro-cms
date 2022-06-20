@@ -76,7 +76,7 @@ class Template_Model extends CI_Model {
 			->select($columns)
 			->from($this->table)
 			->get()
-			->result();
+			->result_array();
 
 	}
 
