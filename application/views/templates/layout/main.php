@@ -14,7 +14,7 @@
 
 <?=$content ?? ''?>
 
-<?=isset($slug) && $slug != 'home' ? $sidebar : ''?>
+<?=isset($slug) && $slug != 'home' ? ($sidebar ?? '') : ''?>
 
 <?=$footer ?? ''?>
 

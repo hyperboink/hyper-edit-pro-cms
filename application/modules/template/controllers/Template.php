@@ -25,7 +25,7 @@ class Template extends HY_Controller{
 
 		$this->load->model('settings/settings_model');
 
-		$this->load->library('image_moo');
+		$this->load->library('image_lib');
 
 	}
 
@@ -463,7 +463,7 @@ class Template extends HY_Controller{
 									break;
 
 								default:
-									$value = html_entity_decode($shortcode_list['value']);
+									$value = html_entity_decode($shortcode_list['value'] ?? '');
 
 							}
 
@@ -646,7 +646,7 @@ class Template extends HY_Controller{
 									break;
 
 								default:
-									$value = html_entity_decode($shortcode_list['value']);
+									$value = html_entity_decode($shortcode_list['value'] ?? '');
 							}
 							
 							if($status_ != 'declared'){
@@ -757,7 +757,7 @@ class Template extends HY_Controller{
 
 					break;
 				default:
-					$layout_value = html_entity_decode($layout['value']);;
+					$layout_value = html_entity_decode($layout['value'] ?? '');
 			}
 
 
@@ -782,10 +782,10 @@ class Template extends HY_Controller{
 
 			foreach($menu as $menu_key => $menu_data){
 
-				$data[$menu_key] = $menu_key == 'data_menu' ? json_decode(html_entity_decode($menu_data), true) : $menu_data;
+				$data[$menu_key] = $menu_key == 'data_menu' ? json_decode(html_entity_decode($menu_data ?? ''), true) : $menu_data;
 
 				if( $menu_key == 'data_menu'){
-					$woo[$key][$menu_key] = json_decode(html_entity_decode($menu_data), true);
+					$woo[$key][$menu_key] = json_decode(html_entity_decode($menu_data ?? ''), true);
 				}else{
 					$woo[$key][$menu_key] = $menu_data;
 				}
@@ -868,7 +868,7 @@ class Template extends HY_Controller{
 	 * @return [type]     	  none
 	 */
 	private function map($location){
-		return '<iframe width="100%" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" class="google-map" src="https://maps.google.com/maps?hl=en&amp;q=' . urlencode($location) . '&amp;z=15&amp;ie=UTF8&amp;output=embed"></iframe>';
+		return '<iframe width="100%" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" class="google-map" src="https://maps.google.com/maps?hl=en&amp;q=' . urlencode($location ?? '') . '&amp;z=15&amp;ie=UTF8&amp;output=embed"></iframe>';
 	}
 
 	/**
@@ -891,7 +891,7 @@ class Template extends HY_Controller{
 
         	$uploaded_file_name = $this->upload->data('file_name');
 
-        	$this->crop_image('uploads/'. $uploaded_file_name, 200, 200);
+        	$this->crop_image($this->upload->data(), 200, 200);
 
         	return $uploaded_file_name;
 
@@ -919,15 +919,43 @@ class Template extends HY_Controller{
 	/**
 	 * Crop Image
 	 * @param  string $image filename
-	 * @param  int $x        x-axis coordinates
-	 * @param  int $y        y-xis coordinates
+	 * @param  int $width    image width
+	 * @param  int $height   image height
 	 * @return none
 	 */
-	private function crop_image($image, $x, $y){
-		$this->image_moo
-            ->load($image)
-            ->resize_crop($x, $y)
-            ->save_pa($prepend = '', $append = '-'.$x . 'x' . $y, $overwrite = TRUE);
+	private function crop_image($upload_data, $width, $height){
+        $config['source_image'] = $upload_data['full_path'];
+        $config['maintain_ratio'] = TRUE;
+        $config['width'] = $width ?? 200;
+        $config['height'] = $width ?? 200;
+        $config['new_image'] = str_replace('.', '-'. $config['width'] .'x'. $config['height'] .'.', 'uploads/' . $upload_data['file_name']);
+
+        $this->image_lib->initialize($config);
+
+        if (!$this->image_lib->resize()) {
+            echo $this->image_lib->display_errors();
+        }
+
+        $this->image_lib->clear();
+	}
+
+	public function cropImage($imagePath, $width, $height){
+
+	    $config['image_library'] = 'gd2';
+		$config['source_image'] = $imagePath;
+		$config['create_thumb'] = TRUE;
+		$config['maintain_ratio'] = TRUE;
+		$config['width'] = 10;
+		$config['height'] = 10;
+		$config['new_image'] = str_replace('.', '-200x200.', $imagePath);
+
+
+		if (!$this->image_lib->resize()) {
+			pre($config['new_image']);
+		    echo $this->image_lib->display_errors();
+		}else{
+			//pre('resized');
+		}
 	}
 
 	/**
